@@ -24,6 +24,22 @@ open https://cloud.ibm.com/databases/databases-for-elasticsearch/create
 cat code/.env_template > .env
 ```
 
+### Step 5: Insert the needed values for the environment variables
 
+```sh
+# IBM Cloud
+export IBM_CLOUD_API_KEY=
+export IBM_CLOUD_REGION=
+export IBM_CLOUD_RESOURCE_GROUP=
+
+# Elasticsearch service
+export E_SEARCH_SERVICE=YOUR_DatabasesForElasticsearch
+export E_PORT=YOUR_PORT
+export E_HOST=YOUR_HOST
+export E_CERT_FILE_NAME=
+export E_CERT_PATH=$HOME_PATH/cert
+export E_ADMIN_USER=admin
+export E_ADMIN_PASSWORD=YOUR_PASSWORD
+```
 
 
