@@ -1,4 +1,4 @@
-# example-connect-to-elastic-search
+# Example of how to connect and use Elasticsearch on IBM Cloud Databases using bash automation and CURL commands
 
 Example how to connect to [Elasticsearch](https://www.elastic.co/) on IBM Cloud with [Databases for Elasticsearch](https://cloud.ibm.com/databases/databases-for-elasticsearch) using bash scripting with cURL.
 
