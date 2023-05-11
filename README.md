@@ -45,18 +45,17 @@ cat code/.env_template > .env
 
 ```sh
 # IBM Cloud
-export IBM_CLOUD_API_KEY=
-export IBM_CLOUD_REGION=
-export IBM_CLOUD_RESOURCE_GROUP=
+export IBM_CLOUD_API_KEY=XXXX
+export IBM_CLOUD_REGION=us-south
+export IBM_CLOUD_RESOURCE_GROUP=default
 
 # Elasticsearch service
 export E_SEARCH_SERVICE=YOUR_DatabasesForElasticsearch
-export E_PORT=YOUR_PORT
-export E_HOST=YOUR_HOST
-export E_CERT_FILE_NAME=
-export E_CERT_PATH=$HOME_PATH/cert
+export E_CERT_FILE_NAME=d5290bfc-XXXXX-XXX-9337-XXXX40bd
+export E_HOST=XXXXX-XXXXX-XXXXX-XXXXX.XXXX.databases.appdomain.cloud
+export E_PORT=0815
 export E_ADMIN_USER=admin
-export E_ADMIN_PASSWORD=YOUR_PASSWORD
+export E_ADMIN_PASSWORD=YOUR_AWESOME_PASSWORD
 ```
 
 ### Step 7: Change the admin password for the database
@@ -134,8 +133,8 @@ Download it to your local computer into the newly created folder.
 * Example:
 
 ```sh
-export E_CERT_FILE_NAME=d5290bfc-XXXXX-XXX-9337-XXXX40bdexport 
-E_HOST=XXXXX-XXXXX-XXXXX-XXXXX.XXXX.databases.appdomain.cloud
+export E_CERT_FILE_NAME=d5290bfc-XXXXX-XXX-9337-XXXX40bd
+export E_HOST=XXXXX-XXXXX-XXXXX-XXXXX.XXXX.databases.appdomain.cloud
 export E_PORT=0815
 export E_ADMIN_USER=admin
 export E_ADMIN_PASSWORD=YOUR_AWESOME_PASSWORD
