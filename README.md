@@ -65,6 +65,23 @@ cd /code
 sh change_admin_password.sh
 ```
 
+* Example output:
+
+```sh
+Key                   Value
+ID                    crn:XXX
+Deployment ID         crn:vXXX
+Description           Updating user
+Created At            2023-XX
+Status                running
+Progress Percentage   0
+                      
+Status                completed
+Progress Percentage   100
+Location              https://api.us-east.databases.cloud.ibm.com/XXXX
+OK
+```
+
 ## 2. Example usage of search indexes using bash automation
 
 ### Step 1: Test the connection
@@ -72,6 +89,16 @@ sh change_admin_password.sh
 ```sh
 cd /code
 sh test_connection.sh
+```
+
+* Example output:
+
+```sh
+{
+  "cluster_name" : "XXX",
+  "status" : "green",
+ ...
+}
 ```
 
 ### Step 2: Create indexes
@@ -127,6 +154,8 @@ export E_CERT_PATH=$(pwd)
 ### Step 5: Download the certificate file for your [Databases for Elasticsearch](https://cloud.ibm.com/databases/databases-for-elasticsearch) instance 
 
 Download it to your local computer into the newly created folder.
+
+![](./images/elasticsearch-02.png)
 
 ### Step 5: Set the following environment variables to your values
 

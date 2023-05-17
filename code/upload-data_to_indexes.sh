@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # **************** Global variables
-HOME_PATH=$(pwd)
+export HOME_PATH=$(pwd)
 
 # IBM Cloud - elastic search variables
 source ./.env
@@ -12,6 +12,7 @@ source ./.env
 
 function upload_index_passages () {
     cd cd $HOME_PATH/split
+    INDEX=passages
     directory="$(pwd)"
     array=()
 
@@ -25,13 +26,15 @@ function upload_index_passages () {
     for file in "${array[@]}";do
        echo "Upload next file: $file"
        cat $file
-       cat "$file" | jq -c '.[] | {"index": {"_index": "passages", "_id": .url}}, .' | CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -i -XPOST -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/_bulk" --data-binary @-
+       cat "$file" | jq -c '.[] | {"index": {"_index": "$INDEX", "_id": .url}}, .' | CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -i -XPOST -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/_bulk" --data-binary @-
     done
 }
 
 function upload_index_documents () {
+    
     cd $HOME_PATH/full
     directory="$(pwd)"
+    INDEX=documents
     array=()
     for file_name in $directory/*.json; do
         if [ -f "$file_name" ]; then
@@ -43,7 +46,7 @@ function upload_index_documents () {
     for file in "${array[@]}";do
        echo "Upload next file: $file"
        cat $file
-       cat "$file" | jq -c '.[] | {"index": {"_index": "passages", "_id": .url}}, .' | CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -i -XPOST -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/_bulk" --data-binary @-
+       cat "$file" | jq -c '.[] | {"index": {"_index": "$INDEX", "_id": .url}}, .' | CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -i -XPOST -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/_bulk" --data-binary @-
     done
 
     cd $HOME_PATH

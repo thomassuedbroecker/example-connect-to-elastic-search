@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # **************** Global variables
-HOME_PATH=$(pwd)
+export HOME_PATH=$(pwd)
 
 # IBM Cloud - elastic search variables
 source ./.env
@@ -14,7 +14,7 @@ function login_to_ibm_cloud () {
     
     echo ""
     echo "*********************"
-    echo "loginIBMCloud"
+    echo "Login IBM Cloud"
     echo "*********************"
     echo ""
 
