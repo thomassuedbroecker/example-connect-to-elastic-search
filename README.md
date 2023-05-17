@@ -33,7 +33,9 @@ open https://cloud.ibm.com/databases/databases-for-elasticsearch/create
 
 ### Step 4: Download the self-signed certificate to your local computer
 
-Download the certificate into the folder ./code/cert.
+Download the certificate file into the folder ./code/cert.
+
+![](./images/elasticsearch-02.png)
 
 ### Step 5: Create a .env file for environment variables of the bash automation
 
@@ -153,7 +155,7 @@ export E_CERT_PATH=$(pwd)
 
 ### Step 5: Download the certificate file for your [Databases for Elasticsearch](https://cloud.ibm.com/databases/databases-for-elasticsearch) instance 
 
-Download it to your local computer into the newly created folder.
+Download the certificate file to your local computer into the newly created folder.
 
 ![](./images/elasticsearch-02.png)
 
