@@ -110,11 +110,77 @@ cd /code
 sh create_indexes.sh
 ```
 
+* Example output:
+
+```sh
+Create: documents
+HTTP/1.1 200 OK
+content-type: application/json; charset=UTF-8
+content-length: 85
+
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "documents"
+}
+Create: passages
+HTTP/1.1 200 OK
+content-type: application/json; charset=UTF-8
+content-length: 84
+
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "passages"
+}
+```
+
 ### Step 3: Upload data to index
 
 ```sh
 cd /code
 sh upload-data_to_indexes.sh
+```
+
+* Example output:
+
+```sh
+[
+  {
+    "chunckid": "1.0815",
+    "text": [
+      "Hello world",
+      "This is the first hello world example!"    ],
+      "url": "http://example.com/docs/0001",
+    "title": "Hello world"
+  },
+  {
+    "chunckid": "1.0815",
+    "text": [
+      "This is the second hello world example!"    ],
+      "url": "http://example.com/docs/0001",
+    "title": "Hello world"
+  }
+]HTTP/1.1 200 OK
+content-type: application/json; charset=UTF-8
+content-length: 451
+
+{"took":119,"errors":false,"items":[{"index":{"_index":"passages","_type":"_doc","_id":"http://example.com/docs/0001","_version":1,"result":"created","_shards":{"total":2,"successful":2,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}},{"index":{"_index":"passages","_type":"_doc","_id":"http://example.com/docs/0001","_version":2,"result":"updated","_shards":{"total":2,"successful":2,"failed":0},"_seq_no":1,"_primary_term":1,"status":200}}]}Upload next file: /Users/thomassuedbroecker/Downloads/dev/example-connect-to-elastic-search/code/full/full1.json
+[
+    {
+      "title": "Hello world",
+      "url": "http://example.com/docs/0001",
+      "text": [
+        "Hello world",
+        "This is the first hello world example!", 
+        "This is the second hello world example!"      
+       ]
+    }
+]HTTP/1.1 200 OK
+content-type: application/json; charset=UTF-8
+content-length: 245
+
+{"took":117,"errors":false,"items":[{"index":{"_index":"documents","_type":"_doc","_id":"http://example.com/docs/0001","_version":1,"result":"created","_shards":{"total":2,"successful":2,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}
 ```
 
 ### Step 4: Search in index
@@ -175,6 +241,85 @@ export E_ADMIN_PASSWORD=YOUR_AWESOME_PASSWORD
 
 ```sh
 CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -XGET -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/documents/_search" -d '{ "query": {"multi_match" : {"query" : "Second Hello World?","fields": ["title", "text"]}}}' | jq '.'
+```
+
+* Example output:
+
+```sh
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:100   453  100   423  100    30   1193     84 --:--:-- --:--:-- --:--:--  1279
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "documents",
+        "_type": "_doc",
+        "_id": "http://example.com/docs/0001",
+        "_score": 1,
+        "_source": {
+          "title": "Hello world",
+          "url": "http://example.com/docs/0001",
+          "text": [
+            "Hello world",
+            "This is the first hello world example!",
+            "This is the second hello world example!"
+          ]
+        }
+      }
+    ]
+  }
+}
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:  0     0    0     0    0     0      0      0 --:--:-- --:--:100   526  100   435  100    91   1264    264 --:--:-- --:--:-- --:--:--  1529
+{
+  "took": 7,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1.1918257,
+    "hits": [
+      {
+        "_index": "documents",
+        "_type": "_doc",
+        "_id": "http://example.com/docs/0001",
+        "_score": 1.1918257,
+        "_source": {
+          "title": "Hello world",
+          "url": "http://example.com/docs/0001",
+          "text": [
+            "Hello world",
+            "This is the first hello world example!",
+            "This is the second hello world example!"
+          ]
+        }
+      }
+    ]
+  }
+}
 ```
 
 

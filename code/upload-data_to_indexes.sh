@@ -11,7 +11,7 @@ source ./.env
 # **********************************************************************************
 
 function upload_index_passages () {
-    cd cd $HOME_PATH/split
+    cd $HOME_PATH/split
     INDEX=passages
     directory="$(pwd)"
     array=()
@@ -26,7 +26,7 @@ function upload_index_passages () {
     for file in "${array[@]}";do
        echo "Upload next file: $file"
        cat $file
-       cat "$file" | jq -c '.[] | {"index": {"_index": "$INDEX", "_id": .url}}, .' | CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -i -XPOST -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/_bulk" --data-binary @-
+       cat "$file" | jq -c '.[] | {"index": {"_index": "passages", "_id": .url}}, .' | CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -i -XPOST -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/_bulk" --data-binary @-
     done
 }
 
@@ -46,7 +46,7 @@ function upload_index_documents () {
     for file in "${array[@]}";do
        echo "Upload next file: $file"
        cat $file
-       cat "$file" | jq -c '.[] | {"index": {"_index": "$INDEX", "_id": .url}}, .' | CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -i -XPOST -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/_bulk" --data-binary @-
+       cat "$file" | jq -c '.[] | {"index": {"_index": "documents", "_id": .url}}, .' | CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_PASSWORD} -i -XPOST -H "Content-Type: application/json" "https://${E_HOST}:${E_PORT}/_bulk" --data-binary @-
     done
 
     cd $HOME_PATH

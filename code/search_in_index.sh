@@ -22,5 +22,5 @@ function query_sample_data () {
 # Execution
 # *********************************************************************************
 
-query_data
+query_all_data
 query_sample_data
