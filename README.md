@@ -13,7 +13,7 @@ Example how to connect to [Elasticsearch](https://www.elastic.co/) on IBM Cloud 
 * [Elasticsearch API documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html) here you can easily copy the commands
 * [IBM Cloud Elasticsearch `CURL` documentation](https://cloud.ibm.com/docs/databases-for-elasticsearch?topic=databases-for-elasticsearch-connecting-curl)
 
-## 1. Setup
+## 1. Setup `IBM Cloud`
 
 ### Step 1: Clone the repo to the local machine
 
@@ -197,7 +197,7 @@ cd /code
 sh delete_indexes.sh
 ```
 
-## Elasticsearch example CURL search command
+## 3. Elasticsearch example CURL search command
 
 ### Step 1: Open a terminal
 
@@ -321,6 +321,41 @@ CURL_CA_BUNDLE=$E_CERT_PATH/$E_CERT_FILE_NAME curl -u ${E_ADMIN_USER}:${E_ADMIN_
   }
 }
 ```
+
+## 4. Setup `Local`
+
+Start Elasticsearch on your local computer using the [Quarkus documentation](https://quarkus.io/guides/elasticsearch#running-an-elasticsearch-cluster)
+
+
+### Step 1: Start container
+
+```sh
+docker run --name elasticsearch  -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms512m -Xmx512m"\
+       --rm -p 9200:9200 docker.io/elastic/elasticsearch:7.16.3
+```
+
+### Step 2: Create a .env file for environment variables of the bash automation
+
+```sh
+cat code/.env_template > .env
+```
+
+### Step 3: Define the following variables
+
+```sh
+export E_PORT=9200
+export E_HOST=localhost
+```
+
+### Step 4: Execute the bash scripts
+
+```sh
+sh create_indexes_local.sh
+sh upload-data_to_indexes_local.sh
+sh search_in_index_local.sh
+sh delete_indexes_local.sh
+```
+
 
 
 
