@@ -334,6 +334,18 @@ docker run --name elasticsearch  -e "discovery.type=single-node" -e "ES_JAVA_OPT
        --rm -p 9200:9200 docker.io/elastic/elasticsearch:7.16.3
 ```
 
+Example how to start with basic authentication.
+
+```sh
+docker run --name elasticsearch  \ 
+       -e "discovery.type=single-node" \ 
+       -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
+       -e "xpack.security.enabled=true" \
+       -e "ELASTIC_USERNAME=elastic" \
+       -e "ELASTIC_PASSWORD=123456789" \
+       --rm -p 9200:9200 docker.io/elastic/elasticsearch:7.16.3
+```
+
 ### Step 2: Create a .env file for environment variables of the bash automation
 
 ```sh
